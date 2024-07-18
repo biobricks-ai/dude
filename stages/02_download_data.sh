@@ -2,4 +2,4 @@
 
 mkdir -p ./download
 
-wget P download/ -i links.txt
+wget -P download/ -i links.txt

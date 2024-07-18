@@ -19,4 +19,13 @@ stages:
     cmd: bash stages/02_download_data.sh
     deps:
       - ./stages/02_download_data.sh
+    outs:
+      - download/
+  process:
+    cmd: bash stages/03_process_data.py
+    deps:
+      - ./stages/03_process_data
+    outs:
+      - brick/
+
 
