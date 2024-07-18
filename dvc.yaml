@@ -9,15 +9,14 @@
 # dvc repro <stage>
 
 stages:
+  create:
+    cmd: python3 stages/01_find_data.py
+    deps:
+      - ./stages/01_find_data.py
+    outs:
+      - links.txt
   download:
-    cmd: python3 stages/01_download_data.py
+    cmd: bash stages/02_download_data.sh
     deps:
-      - ./stages/01_download_data.py
-    outs:
-      - downloads/
-  process:
-    cmd: python3 stages/02_process_data.py
-    deps:
-      - ./stages/02_process_data.py
-    outs:
-      - brick/
+      - ./stages/02_download_data.sh
+
