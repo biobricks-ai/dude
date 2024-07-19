@@ -7,4 +7,5 @@ os.makedirs('list', exist_ok=True)
 
 url = 'https://dude.docking.org/targets'
 df = pd.read_html(url)[0]
+df['Target Name'] = df['Target Name'].str.lower()
 df['Target Name'].to_csv('list/target_links.txt', header=False, index=False)
