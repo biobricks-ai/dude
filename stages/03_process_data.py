@@ -4,7 +4,7 @@ import re
 import pathlib
 import pandas as pd
 
-extensions = ['zip']
+extensions = ['ism']
 extensions_re = re.compile(r'\.(' + '|'.join(re.escape(ext) for ext in extensions) + r')$')
 files = filter( lambda item: item.is_file(), pathlib.Path('download').rglob('*'))
 
@@ -40,6 +40,7 @@ for file in files:
             protein_dir = pathlib.Path('brick/%s' % protein_dir)
             protein_dir.mkdir(exist_ok=True)
             transformed_df.to_parquet(out_file)
+
         except Exception as e:
           print ("File Not Processed: %s" % file)
     else:
