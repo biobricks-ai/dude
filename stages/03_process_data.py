@@ -15,44 +15,49 @@ smiles_list = []
 inhibitor_constant_values = []
 inhibitory_concentration_values = []
 half_maximal_effective_concentrations = []
+dissociation_constants = []
 protein_targets = []
 active_or_inactive = []
 
 for file in files:
-  out_basename = re.sub(extensions_re, '.parquet', file.name )
-  out_file = brick_dir / file.relative_to('download').with_name( out_basename )
+    out_basename = re.sub(extensions_re, '.parquet', file.name )
+    out_file = brick_dir / file.relative_to('download').with_name( out_basename )
 
-  if file.match('*.ism'):
+    if file.match('*.ism'):
 
-      lines = list(filter(None, open(file, 'r').read().split('\n')))
+        lines = list(filter(None, open(file, 'r').read().split('\n')))
 
-      protein_target = file.name.split('_')[0]
-      state = file.name.split('_')[1].split('.')[0]
+        protein_target = file.name.split('_')[0]
+        state = file.name.split('_')[1].split('.')[0]
 
-      for line in lines:
-          smiles = line[0]
+        for line in lines:
+            smiles = line[0]
 
-          inhibitor_constant_value = None
-          inhibitory_concentration_value = None
-          half_maximal_effective_concentration = None
+            inhibitor_constant_value = None
+            inhibitory_concentration_value = None
+            half_maximal_effective_concentration = None
+            dissociation_constant = None
 
-          if 'IC50' in line:
-              inhibitory_concentration_value = line.split('IC50')[1].split(' ')[2]
-          elif 'Ki' in line:
-              inhibitor_constant_value = line.split('Ki')[1].split(' ')[2]
-          elif 'EC50' in line:
-              half_maximal_effective_concentration = line.split('EC50')[1].split(' ')[2]
-          else:
-              raise Exception('No Inhibition Value: %s' % line)
+            if 'IC50' in line:
+                inhibitory_concentration_value = line.split('IC50')[1].split(' ')[2]
+            elif 'Ki' in line:
+                inhibitor_constant_value = line.split('Ki')[1].split(' ')[2]
+            elif 'Kd' in line:
+                dissociation_constant = line.split('Kd')[1].split(' ')[2]
+            elif 'EC50' in line:
+                half_maximal_effective_concentration = line.split('EC50')[1].split(' ')[2]
+            else:
+                raise Exception('No Inhibition Value: %s' % line)
 
-          smiles_list.append(smiles)
-          inhibitor_constant_values.append(inhibitor_constant_value)
-          inhibitory_concentration_values.append(inhibitory_concentration_value)
-          half_maximal_effective_concentrations.append(half_maximal_effective_concentration)
-          protein_targets.append(protein_target)
-          active_or_inactive.append(state)
-  else:
-    raise Exception('Unknown File Found: %s' % file)
+            smiles_list.append(smiles)
+            inhibitor_constant_values.append(inhibitor_constant_value)
+            inhibitory_concentration_values.append(inhibitory_concentration_value)
+            half_maximal_effective_concentrations.append(half_maximal_effective_concentration)
+            dissociation_constants.append(dissociation_constant)
+            protein_targets.append(protein_target)
+            active_or_inactive.append(state)
+    else:
+      raise Exception('Unknown File Found: %s' % file)
 
 df = pd.DataFrame()
 
