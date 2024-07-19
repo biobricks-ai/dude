@@ -2,5 +2,4 @@
 
 mkdir -p ./download
 
-cat list/target_links.txt | xargs -I {} wget -P download/ "https://dude.docking.org//targets/{}/{}.tar.gz"
-
+cat list/target_links.txt | xargs -I {} wget -P download/  -nH --cut-dirs=2 -r -l 1 -A '*.ism' 'https://dude.docking.org/targets/{}'

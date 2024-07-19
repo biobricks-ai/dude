@@ -18,7 +18,7 @@ for file in files:
 
     if file.match('*.ism'):
 
-        df = pd.read_csv(file, sep='\0', header=None, compression='zip')
+        df = pd.read_csv(file, sep='\0', header=None)
         transformed_df = df[0].str.split(' ', n=9, expand=True)
 
         names = {
