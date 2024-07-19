@@ -67,3 +67,5 @@ df['IC50'] = inhibitory_concentration_values
 df['EC50'] = half_maximal_effective_concentrations
 df['Protein Target'] = protein_targets
 df['State'] = active_or_inactive
+
+df.to_parquet('brick/dude.parquet')
