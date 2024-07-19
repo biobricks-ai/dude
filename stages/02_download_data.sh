@@ -3,6 +3,6 @@
 mkdir -p ./download
 
 while read -r first; do
-    wget -P download/ "$first" &
+    bash "$first"
     wait
 done < links.txt
