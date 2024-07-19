@@ -2,7 +2,7 @@
 
 mkdir -p ./download
 
-while read -r first; do
-    bash "$first"
+while read -r first second third; do
+    wget "$first" "$second" "$third"
     wait
 done < links.txt

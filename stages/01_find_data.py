@@ -23,5 +23,5 @@ for row in rows:
         active_url = active_base_url.replace('PROTEIN', protein_target)
         inactive_url = inactive_base_url.replace('PROTEIN', protein_target)
 
-        links_text.write('wget -P download/ -O ' + protein_target + '_active.ism' + ' ' + active_url)
-        links_text.write('wget -P download/ -O ' + protein_target + '_inactive.ism' + ' ' + inactive_url)
+        links_text.write('wget -O download/protein_target' + '_active.ism' + ' ' + active_url)
+        links_text.write('wget -O download/protein_target' + '_inactive.ism' + ' ' + inactive_url)
