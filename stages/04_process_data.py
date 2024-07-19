@@ -18,7 +18,7 @@ for file in files:
 
     if file.match('*.ism'):
 
-        df = pd.read_csv(file, sep='\0', header=None)
+        df = pd.read_csv(file, sep='\0', header=None, compression='zip')
         transformed_df = df[0].str.split(' ', n=9, expand=True)
 
         names = {
@@ -35,7 +35,7 @@ for file in files:
         }
 
         named_df = transformed_df.rename(names)
-        df.to_parquet(out_file)
+        named_df.to_parquet(out_file)
     else:
       raise Exception('Unknown File Found: %s' % file)
 
