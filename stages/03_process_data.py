@@ -14,6 +14,7 @@ brick_dir.mkdir(exist_ok=True)
 smiles_list = []
 inhibitor_constant_values = []
 inhibitory_concentration_values = []
+half_maximal_effective_concentrations = []
 protein_targets = []
 active_or_inactive = []
 
@@ -31,18 +32,23 @@ for file in files:
       for line in lines:
           smiles = line[0]
 
+          inhibitor_constant_value = None
+          inhibitory_concentration_value = None
+          half_maximal_effective_concentration = None
+
           if 'IC50' in line:
               inhibitory_concentration_value = line.split('IC50')[1].split(' ')[2]
-              inhibitor_constant_value = None
           elif 'Ki' in line:
               inhibitor_constant_value = line.split('Ki')[1].split(' ')[2]
-              inhibitory_concentration_value = None
+          elif 'EC50' in line:
+              half_maximal_effective_concentration = line.split('EC50')[1].split(' ')[2]
           else:
               raise Exception('No Inhibition Value: %s' % line)
 
           smiles_list.append(smiles)
           inhibitor_constant_values.append(inhibitor_constant_value)
           inhibitory_concentration_values.append(inhibitory_concentration_value)
+          half_maximal_effective_concentrations.append(half_maximal_effective_concentration)
           protein_targets.append(protein_target)
           active_or_inactive.append(state)
   else:
@@ -53,5 +59,6 @@ df = pd.DataFrame()
 df['SMILES'] = smiles_list
 df['KI'] = inhibitor_constant_values
 df['IC50'] = inhibitory_concentration_values
+df['EC50'] = half_maximal_effective_concentrations
 df['Protein Target'] = protein_targets
 df['State'] = active_or_inactive
