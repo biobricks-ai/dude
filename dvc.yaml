@@ -14,7 +14,7 @@ stages:
     deps:
       - ./stages/01_find_data.py
     outs:
-      - links.txt
+      - list/target_links.txt
   download:
     cmd: bash stages/02_download_data.sh
     deps:

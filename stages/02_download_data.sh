@@ -2,7 +2,5 @@
 
 mkdir -p ./download
 
-while read -r first second third fourth; do
-    wget "$first" "$second" "$third" "$fourth"
-    wait
-done < links.txt
+cat targets.txt | xargs -I {} wget -P download/ "https://dude.docking.org//targets/{}/{}.tar.gz"
+

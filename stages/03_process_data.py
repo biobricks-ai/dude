@@ -11,61 +11,31 @@ files = filter( lambda item: item.is_file(), pathlib.Path('download').rglob('*')
 brick_dir = pathlib.Path('brick')
 brick_dir.mkdir(exist_ok=True)
 
-smiles_list = []
-inhibitor_constant_values = []
-inhibitory_concentration_values = []
-half_maximal_effective_concentrations = []
-dissociation_constants = []
-protein_targets = []
-active_or_inactive = []
-
 for file in files:
+
     out_basename = re.sub(extensions_re, '.parquet', file.name )
     out_file = brick_dir / file.relative_to('download').with_name( out_basename )
 
     if file.match('*.ism'):
 
-        lines = list(filter(None, open(file, 'r').read().split('\n')))
+        df = pd.read_csv(file, sep='\0', header=None)
+        transformed_df = df[0].str.split(' ', n=9, expand=True)
 
-        protein_target = file.name.split('_')[0]
-        state = file.name.split('_')[1].split('.')[0]
+        names = {
+          0: 'SMILES',
+          1: 'DAT?',   # TODO: Figure out what this column is
+          2: 'Inhibition Metric',
+          3: 'Sign Notation',
+          4: 'Value',
+          5: 'Unit',
+          6: 'Unknown', # TODO: Figure out what this column is
+          7: 'Decoys',
+          8: 'SWISS PROT',
+          9: 'Protein'
+        }
 
-        for line in lines:
-            smiles = line[0]
-
-            inhibitor_constant_value = None
-            inhibitory_concentration_value = None
-            half_maximal_effective_concentration = None
-            dissociation_constant = None
-
-            if 'IC50' in line:
-                inhibitory_concentration_value = line.split('IC50')[1].split(' ')[2]
-            elif 'Ki' in line:
-                inhibitor_constant_value = line.split('Ki')[1].split(' ')[2]
-            elif 'Kd' in line:
-                dissociation_constant = line.split('Kd')[1].split(' ')[2]
-            elif 'EC50' in line:
-                half_maximal_effective_concentration = line.split('EC50')[1].split(' ')[2]
-            else:
-                raise Exception('No Inhibition Value: %s' % line)
-
-            smiles_list.append(smiles)
-            inhibitor_constant_values.append(inhibitor_constant_value)
-            inhibitory_concentration_values.append(inhibitory_concentration_value)
-            half_maximal_effective_concentrations.append(half_maximal_effective_concentration)
-            dissociation_constants.append(dissociation_constant)
-            protein_targets.append(protein_target)
-            active_or_inactive.append(state)
+        named_df = transformed_df.rename(names)
+        df.to_parquet(out_file)
     else:
       raise Exception('Unknown File Found: %s' % file)
 
-df = pd.DataFrame()
-
-df['SMILES'] = smiles_list
-df['KI'] = inhibitor_constant_values
-df['IC50'] = inhibitory_concentration_values
-df['EC50'] = half_maximal_effective_concentrations
-df['Protein Target'] = protein_targets
-df['State'] = active_or_inactive
-
-df.to_parquet('brick/dude.parquet')
