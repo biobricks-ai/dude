@@ -22,9 +22,9 @@ stages:
     outs:
       - download/
   process:
-    cmd: bash stages/03_process_data.py
+    cmd: python stages/03_process_data.py
     deps:
-      - ./stages/03_process_data
+      - ./stages/03_process_data.py
     outs:
       - brick/
 
