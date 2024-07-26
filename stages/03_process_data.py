@@ -60,7 +60,7 @@ for file in files:
         }
 
         col_nums = 2
-        df = pd.read_csv(file, header=None, delim_whitespace=True)
+        df = pd.read_csv(file, sep='\s+', header=None)
 
     elif file.match('*.ism'):
 
