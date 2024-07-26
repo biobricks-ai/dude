@@ -22,110 +22,113 @@ for file in files:
 
     protein_dir = str(file).split('/')[1]
 
-    if file.match('*scaffolds.ism'):
+    try:
+        if file.match('*scaffolds.ism'):
 
-        names = {
-          0: 'SMILES',
-        }
+            names = {
+              0: 'SMILES',
+            }
 
-        col_nums = 1
-        df = pd.read_csv(file, sep='\0', header=None)
+            col_nums = 1
+            df = pd.read_csv(file, sep='\0', header=None)
 
-    elif file.match('actives_final.ism'):
+        elif file.match('actives_final.ism'):
 
-        names = {
-            0: 'SMILES',
-            1: 'DAT',   # TODO: Figure out what this column is
-            2: 'CHEMBL',   # TODO: Figure out what this column is
-        }
+            names = {
+                0: 'SMILES',
+                1: 'DAT',   # TODO: Figure out what this column is
+                2: 'CHEMBL',   # TODO: Figure out what this column is
+            }
 
-        col_nums = 3
-        df = pd.read_csv(file, sep='\0', header=None)
+            col_nums = 3
+            df = pd.read_csv(file, sep='\0', header=None)
 
-    elif file.match('inactives_nM_combined.ism'):
+        elif file.match('inactives_nM_combined.ism'):
 
-        names = {
-          0: 'SMILES',
-          1: 'DAT',   # TODO: Figure out what this column is
-          2: 'Inhibition_Metric',
-          3: 'Relation',
-          4: 'Value',
-          5: 'Unit',
-        }
+            names = {
+              0: 'SMILES',
+              1: 'DAT',   # TODO: Figure out what this column is
+              2: 'Inhibition_Metric',
+              3: 'Relation',
+              4: 'Value',
+              5: 'Unit',
+            }
 
-        continue
+            continue
 
-        # TODO: different proteins have different recorded metric...
-        # col_nums = 6
-        # df = pd.read_csv(file, sep='\0', header=None)
+            # TODO: different proteins have different recorded metric...
+            # col_nums = 6
+            # df = pd.read_csv(file, sep='\0', header=None)
 
 
-    elif file.match('decoys_scaffolds*') or file.match('decoys_final*'):
+        elif file.match('decoys_scaffolds*') or file.match('decoys_final*'):
 
-        names = {
-          0: 'SMILES',
-          1: 'DAT',   # TODO: Figure out what this column is
-        }
+            names = {
+              0: 'SMILES',
+              1: 'DAT',   # TODO: Figure out what this column is
+            }
 
-        col_nums = 2
-        df = pd.read_csv(file, sep='\0', header=None)
+            col_nums = 2
+            df = pd.read_csv(file, sep='\0', header=None)
 
-    elif file.match('decoys_tabbed*'):
+        elif file.match('decoys_tabbed*'):
 
-        names = {
-          0: 'SMILES',
-          1: 'DAT',   # TODO: Figure out what this column is
-        }
+            names = {
+              0: 'SMILES',
+              1: 'DAT',   # TODO: Figure out what this column is
+            }
 
-        col_nums = 2
-        df = pd.read_csv(file, sep='\s+', header=None)
+            col_nums = 2
+            df = pd.read_csv(file, sep='\s+', header=None)
 
-        continue # TODO: Process file into parquet Read columns correct with separator for transformed DF
+            continue # TODO: Process file into parquet Read columns correct with separator for transformed DF
 
-    elif file.match('actives_murcko_enumeration.ism'):
+        elif file.match('actives_murcko_enumeration.ism'):
 
-        names = {
-          0: 'SMILES',
-          1: 'DAT',   # TODO: Figure out what this column is
-          2: 'Inhibition_Metric',
-          3: 'Relation',
-          4: 'Value',
-          5: 'Unit',
-          6: 'Unknown', # TODO: Figure out what this column is
-          7: 'Unknown 2', # TODO: Figure out what this column is
-          8: 'SWISS_PROT',
-          9: 'Protein',
-          10: 'Scaffold',
-          11: 'Number_of_Decoys',
-        }
+            names = {
+              0: 'SMILES',
+              1: 'DAT',   # TODO: Figure out what this column is
+              2: 'Inhibition_Metric',
+              3: 'Relation',
+              4: 'Value',
+              5: 'Unit',
+              6: 'Unknown', # TODO: Figure out what this column is
+              7: 'Unknown 2', # TODO: Figure out what this column is
+              8: 'SWISS_PROT',
+              9: 'Protein',
+              10: 'Scaffold',
+              11: 'Number_of_Decoys',
+            }
 
-        continue #TODO: Figure out how to process this script
+            continue #TODO: Figure out how to process this script
 
-        # col_nums = 11
-        # df = pd.read_csv(file, sep='\0', header=None)
+            # col_nums = 11
+            # df = pd.read_csv(file, sep='\0', header=None)
 
-    elif file.match('*.ism'):
+        elif file.match('*.ism'):
 
-        names = {
-            0: 'SMILES',
-            1: 'DAT',   # TODO: Figure out what this column is
-            2: 'Inhibition_Metric',
-            3: 'Relation',
-            4: 'Value',
-            5: 'Unit',
-            6: 'Unknown', # TODO: Figure out what this column is
-            7: 'Number_of_Decoys',
-            8: 'SWISS_PROT',
-            9: 'Protein'
-        }
-        col_nums = 9
-        df = pd.read_csv(file, sep='\0', header=None)
+            names = {
+                0: 'SMILES',
+                1: 'DAT',   # TODO: Figure out what this column is
+                2: 'Inhibition_Metric',
+                3: 'Relation',
+                4: 'Value',
+                5: 'Unit',
+                6: 'Unknown', # TODO: Figure out what this column is
+                7: 'Number_of_Decoys',
+                8: 'SWISS_PROT',
+                9: 'Protein'
+            }
+            col_nums = 9
+            df = pd.read_csv(file, sep='\0', header=None)
 
-    else:
-      raise Exception('Unknown File Found: %s' % file)
+        else:
+          raise Exception('Unknown File Found: %s' % file)
 
-    transformed_df = df[0].str.split(' ', n=col_nums, expand=True)
-    transformed_df.columns = list(names.values())
-    protein_dir = pathlib.Path('brick/%s' % protein_dir)
-    protein_dir.mkdir(exist_ok=True)
-    transformed_df.to_parquet(out_file)
+        transformed_df = df[0].str.split(' ', n=col_nums, expand=True)
+        transformed_df.columns = list(names.values())
+        protein_dir = pathlib.Path('brick/%s' % protein_dir)
+        protein_dir.mkdir(exist_ok=True)
+        transformed_df.to_parquet(out_file)
+    except Exception as e:
+        print ('File Not Processed: %s' % e)
