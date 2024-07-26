@@ -131,4 +131,4 @@ for file in files:
         protein_dir.mkdir(exist_ok=True)
         transformed_df.to_parquet(out_file)
     except Exception as e:
-        print ('File Not Processed: %s' % e)
+        print ('File Not Processed: %s %s' % (file, e))
