@@ -21,7 +21,6 @@ for file in files:
     out_file = brick_dir / file.relative_to('download').with_name( out_basename )
 
     protein_dir = str(file).split('/')[1]
-    print (file)
 
     if file.match('*scaffolds.ism'):
 
@@ -53,8 +52,13 @@ for file in files:
           4: 'Value',
           5: 'Unit',
         }
-        col_nums = 6
-        df = pd.read_csv(file, sep='\0', header=None)
+
+        continue
+
+        # TODO: different proteins have different recorded metric...
+        # col_nums = 6
+        # df = pd.read_csv(file, sep='\0', header=None)
+
 
     elif file.match('decoys_scaffolds*') or file.match('decoys_final*'):
 
