@@ -28,9 +28,7 @@ for file in files:
         }
 
         df = pd.read_csv(file, sep='\0', header=None)
-        protein_dir = pathlib.Path('brick/%s' % protein_dir)
-        protein_dir.mkdir(exist_ok=True)
-        df.to_parquet(out_file)
+        transformed_df = df[0].str.split(' ', n=1, expand=True)
 
     elif file.match('*.ism'):
 
@@ -51,11 +49,11 @@ for file in files:
 
         df = pd.read_csv(file, sep='\0', header=None)
         transformed_df = df[0].str.split(' ', n=9, expand=True)
-        transformed_df.columns = list(names.values())
-        protein_dir = pathlib.Path('brick/%s' % protein_dir)
-        protein_dir.mkdir(exist_ok=True)
-        transformed_df.to_parquet(out_file)
 
     else:
       raise Exception('Unknown File Found: %s' % file)
 
+    transformed_df.columns = list(names.values())
+    protein_dir = pathlib.Path('brick/%s' % protein_dir)
+    protein_dir.mkdir(exist_ok=True)
+    transformed_df.to_parquet(out_file)
