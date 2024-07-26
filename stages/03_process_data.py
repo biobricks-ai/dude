@@ -21,6 +21,7 @@ for file in files:
     out_file = brick_dir / file.relative_to('download').with_name( out_basename )
 
     protein_dir = str(file).split('/')[1]
+    print (file)
 
     if file.match('*scaffolds.ism'):
 
@@ -40,6 +41,19 @@ for file in files:
         }
 
         col_nums = 3
+        df = pd.read_csv(file, sep='\0', header=None)
+
+    elif file.match('inactives_nM_combined.ism'):
+
+        names = {
+          0: 'SMILES',
+          1: 'DAT',   # TODO: Figure out what this column is
+          2: 'Inhibition_Metric',
+          3: 'Relation',
+          4: 'Value',
+          5: 'Unit',
+        }
+        col_nums = 6
         df = pd.read_csv(file, sep='\0', header=None)
 
     elif file.match('decoys_scaffolds*') or file.match('decoys_final*'):
