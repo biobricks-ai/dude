@@ -64,7 +64,7 @@ for file in files:
 
         continue # TODO: Process file into parquet Read columns correct with separator for transformed DF
 
-    elif file.match('*murcko_enumeration.ism'):
+    elif file.match('actives_murcko_enumeration.ism'):
 
         names = {
           0: 'SMILES',
@@ -76,10 +76,11 @@ for file in files:
           6: 'Unknown', # TODO: Figure out what this column is
           7: 'Unknown 2', # TODO: Figure out what this column is
           8: 'SWISS_PROT',
-          9: 'Protien',
-          10: 'Number_of_Decoys',
+          9: 'Protein',
+          10: 'Scaffold',
+          11: 'Number_of_Decoys',
         }
-        col_nums = 10
+        col_nums = 11
         df = pd.read_csv(file, sep='\0', header=None)
 
     elif file.match('*.ism'):
