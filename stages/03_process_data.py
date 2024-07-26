@@ -20,8 +20,9 @@ for file in files:
     out_basename = re.sub(extensions_re, '.parquet', file.name )
     out_file = brick_dir / file.relative_to('download').with_name( out_basename )
 
+    protein_dir = str(file).split('/')[1]
+
     if file.match('*scaffolds.ism'):
-        protein_dir = str(file).split('/')[1]
 
         names = {
           0: 'SMILES',
@@ -29,7 +30,7 @@ for file in files:
 
         col_nums = 1
 
-    elif file.match('*final.ism'):
+    elif file.match('actives_final.ism'):
         names = {
             0: 'SMILES',
             1: 'DAT',   # TODO: Figure out what this column is
@@ -39,7 +40,6 @@ for file in files:
         col_nums = 3
 
     elif file.match('decoys*'):
-      protein_dir = str(file).split('/')[1]
 
       names = {
         0: 'SMILES',
@@ -49,8 +49,6 @@ for file in files:
       col_nums = 2
 
     elif file.match('*.ism'):
-
-        protein_dir = str(file).split('/')[1]
 
         names = {
             0: 'SMILES',
