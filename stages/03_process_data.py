@@ -14,10 +14,13 @@ brick_dir.mkdir(exist_ok=True)
 
 for file in files:
 
+    if os.stat(file).st_size == 0:
+        continue
+
     out_basename = re.sub(extensions_re, '.parquet', file.name )
     out_file = brick_dir / file.relative_to('download').with_name( out_basename )
 
-    if file.match('*.ism') and not os.stat(file).st_size == 0:
+    if file.match('*.ism'):
 
         protein_dir = str(file).split('/')[1]
 
