@@ -1,2 +1,40 @@
 schema: '2.0'
-stages: {}
+stages:
+  create:
+    cmd: python3 stages/01_find_data.py
+    deps:
+    - path: ./stages/01_find_data.py
+      hash: md5
+      md5: ead64546e1fdb9c1b40cecd1c67f119c
+      size: 281
+    outs:
+    - path: list/target_links.txt
+      hash: md5
+      md5: 1672250f20a39623134090995f2efbd6
+      size: 536
+  download:
+    cmd: bash stages/02_download_data.sh
+    deps:
+    - path: ./stages/02_download_data.sh
+      hash: md5
+      md5: b2ca8b5c3d8cb04655fceff0e89ed8de
+      size: 221
+    outs:
+    - path: download/
+      hash: md5
+      md5: f951b52d8043ea760d44edc1e82fe3e3.dir
+      size: 430652419
+      nfiles: 2147
+  process:
+    cmd: python3 stages/03_process_data.py
+    deps:
+    - path: ./stages/03_process_data.py
+      hash: md5
+      md5: bdd4fb84a554aedc74a12858ce778898
+      size: 3982
+    outs:
+    - path: brick/
+      hash: md5
+      md5: 5c1537f0b979c216f988f1634ec33940.dir
+      size: 146635758
+      nfiles: 1797

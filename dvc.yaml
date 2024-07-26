@@ -3,33 +3,29 @@
 
 # The complete process can be executed using:
 # dvc repro
-# If you want to force redoing the process use 
+# If you want to force redoing the process use
 # dvc repro -f
-# Individual stage can be executed using: 
+# Individual stage can be executed using:
 # dvc repro <stage>
 
 stages:
+  create:
+    cmd: python3 stages/01_find_data.py
+    deps:
+      - ./stages/01_find_data.py
+    outs:
+      - list/target_links.txt
   download:
-    cmd: stages/01_download.sh
+    cmd: bash stages/02_download_data.sh
     deps:
-      - stages/01_download.sh
+      - ./stages/02_download_data.sh
     outs:
-      - download
-      - list
-  unzip: 
-    cmd: stages/02_unzip.sh
+      - download/
+  process:
+    cmd: python3 stages/03_process_data.py
     deps:
-      - stages/02_unzip.sh
-      - download
-      - list
+      - ./stages/03_process_data.py
     outs:
-      - raw
-  build: 
-    cmd: stages/03_build.sh
-    deps:
-      - stages/03_build.sh
-      - stages/csv2parquet.sh
-      - raw
-      - list
-    outs:
-      - brick
+      - brick/
+
+
