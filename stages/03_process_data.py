@@ -24,13 +24,13 @@ for file in files:
         names = {
             0: 'SMILES',
             1: 'DAT',   # TODO: Figure out what this column is
-            2: 'Inhibition Metric',
+            2: 'Inhibition_Metric',
             3: 'Relation',
             4: 'Value',
             5: 'Unit',
             6: 'Unknown', # TODO: Figure out what this column is
-            7: 'Number of Decoys',
-            8: 'SWISS PROT',
+            7: 'Number_of_Decoys',
+            8: 'SWISS_PROT',
             9: 'Protein'
         }
 
