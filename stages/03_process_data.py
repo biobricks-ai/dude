@@ -80,8 +80,11 @@ for file in files:
           10: 'Scaffold',
           11: 'Number_of_Decoys',
         }
-        col_nums = 11
-        df = pd.read_csv(file, sep='\0', header=None)
+
+        continue #TODO: Figure out how to process this script
+
+        # col_nums = 11
+        # df = pd.read_csv(file, sep='\0', header=None)
 
     elif file.match('*.ism'):
 
