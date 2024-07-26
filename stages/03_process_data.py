@@ -42,7 +42,7 @@ for file in files:
         col_nums = 3
         df = pd.read_csv(file, sep='\0', header=None)
 
-    elif file.match('decoys_scaffolds*'):
+    elif file.match('decoys_scaffolds*') or file.match('decoys_final*'):
 
         names = {
           0: 'SMILES',
