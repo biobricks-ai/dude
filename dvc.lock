@@ -17,8 +17,8 @@ stages:
     deps:
     - path: ./stages/02_download_data.sh
       hash: md5
-      md5: 99e69f3c94f07569531d371785d6f93f
-      size: 175
+      md5: b2ca8b5c3d8cb04655fceff0e89ed8de
+      size: 221
     outs:
     - path: download/
       hash: md5
@@ -26,15 +26,15 @@ stages:
       size: 430652419
       nfiles: 2147
   process:
-    cmd: python stages/03_process_data.py
+    cmd: python3 stages/03_process_data.py
     deps:
     - path: ./stages/03_process_data.py
       hash: md5
-      md5: 581989b6f6cd89718c1b460c7ce86c4a
-      size: 1488
+      md5: bdd4fb84a554aedc74a12858ce778898
+      size: 3982
     outs:
     - path: brick/
       hash: md5
-      md5: 99c31036a4ebdfaf0c391f9c15741a4e.dir
-      size: 20687534
-      nfiles: 1407
+      md5: 5c1537f0b979c216f988f1634ec33940.dir
+      size: 146635758
+      nfiles: 1797
