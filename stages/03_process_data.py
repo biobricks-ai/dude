@@ -29,6 +29,15 @@ for file in files:
 
         col_nums = 1
 
+    elif file.match('*final.ism'):
+        names = {
+            0: 'SMILES',
+            1: 'DAT',   # TODO: Figure out what this column is
+            2: 'CHEMBL',   # TODO: Figure out what this column is
+        }
+
+        col_nums = 3
+
     elif file.match('decoys*'):
       protein_dir = str(file).split('/')[1]
 
