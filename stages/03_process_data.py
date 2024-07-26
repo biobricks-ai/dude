@@ -27,8 +27,17 @@ for file in files:
           0: 'SMILES',
         }
 
-        df = pd.read_csv(file, sep='\0', header=None)
-        transformed_df = df[0].str.split(' ', n=1, expand=True)
+        col_nums = 1
+
+    elif file.match('decoys*'):
+      protein_dir = str(file).split('/')[1]
+
+      names = {
+        0: 'SMILES',
+        1: 'DAT',   # TODO: Figure out what this column is
+      }
+
+      col_nums = 2
 
     elif file.match('*.ism'):
 
@@ -46,13 +55,13 @@ for file in files:
             8: 'SWISS_PROT',
             9: 'Protein'
         }
-
-        df = pd.read_csv(file, sep='\0', header=None)
-        transformed_df = df[0].str.split(' ', n=9, expand=True)
+        col_nums = 9
 
     else:
       raise Exception('Unknown File Found: %s' % file)
 
+    df = pd.read_csv(file, sep='\0', header=None)
+    transformed_df = df[0].str.split(' ', n=col_nums, expand=True)
     transformed_df.columns = list(names.values())
     protein_dir = pathlib.Path('brick/%s' % protein_dir)
     protein_dir.mkdir(exist_ok=True)
