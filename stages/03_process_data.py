@@ -1,5 +1,6 @@
 # Imports
 # -------
+import os
 import re
 import pathlib
 import pandas as pd
@@ -16,7 +17,7 @@ for file in files:
     out_basename = re.sub(extensions_re, '.parquet', file.name )
     out_file = brick_dir / file.relative_to('download').with_name( out_basename )
 
-    if file.match('*.ism'):
+    if file.match('*.ism') and not os.stat(file).st_size == 0:
 
         protein_dir = str(file).split('/')[1]
 
