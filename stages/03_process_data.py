@@ -20,7 +20,19 @@ for file in files:
     out_basename = re.sub(extensions_re, '.parquet', file.name )
     out_file = brick_dir / file.relative_to('download').with_name( out_basename )
 
-    if file.match('*.ism'):
+    if file.match('*scaffolds.ism'):
+        protein_dir = str(file).split('/')[1]
+
+        names = {
+          0: 'SMILES',
+        }
+
+        df = pd.read_csv(file, sep='\0', header=None)
+        protein_dir = pathlib.Path('brick/%s' % protein_dir)
+        protein_dir.mkdir(exist_ok=True)
+        df.to_parquet(out_file)
+
+    elif file.match('*.ism'):
 
         protein_dir = str(file).split('/')[1]
 
