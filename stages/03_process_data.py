@@ -29,8 +29,10 @@ for file in files:
         }
 
         col_nums = 1
+        df = pd.read_csv(file, sep='\0', header=None)
 
     elif file.match('actives_final.ism'):
+
         names = {
             0: 'SMILES',
             1: 'DAT',   # TODO: Figure out what this column is
@@ -38,15 +40,27 @@ for file in files:
         }
 
         col_nums = 3
+        df = pd.read_csv(file, sep='\0', header=None)
 
-    elif file.match('decoys*'):
+    elif file.match('decoys_scaffolds*'):
 
-      names = {
-        0: 'SMILES',
-        1: 'DAT',   # TODO: Figure out what this column is
-      }
+        names = {
+          0: 'SMILES',
+          1: 'DAT',   # TODO: Figure out what this column is
+        }
 
-      col_nums = 2
+        col_nums = 2
+        df = pd.read_csv(file, sep='\0', header=None)
+
+    elif file.match('decoys_tabbed*'):
+
+        names = {
+          0: 'SMILES',
+          1: 'DAT',   # TODO: Figure out what this column is
+        }
+
+        col_nums = 2
+        df = pd.read_csv(file, header=None, delim_whitespace=True)
 
     elif file.match('*.ism'):
 
@@ -63,11 +77,11 @@ for file in files:
             9: 'Protein'
         }
         col_nums = 9
+        df = pd.read_csv(file, sep='\0', header=None)
 
     else:
       raise Exception('Unknown File Found: %s' % file)
 
-    df = pd.read_csv(file, sep='\0', header=None)
     transformed_df = df[0].str.split(' ', n=col_nums, expand=True)
     transformed_df.columns = list(names.values())
     protein_dir = pathlib.Path('brick/%s' % protein_dir)
