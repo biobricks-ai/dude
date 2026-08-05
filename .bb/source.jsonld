@@ -1,0 +1,51 @@
+{
+  "@context": "../../context/source.context.jsonld",
+  "@type": "dcat:Dataset",
+  "@id": "https://biobricks.ai/bricks/dude",
+  "dcterms:title": "dude (bare brick template; identity presumed DUD-E docking decoys)",
+  "dcterms:description": "A BioBricks brick named 'dude'. The on-disk repository is an essentially empty brick-template shell: its dvc.yaml references stages/01_download.sh, 02_unzip.sh and 03_build.sh, but those download/unzip/build scripts do not exist (only csv2parquet.R and csv2parquet.py remain), dvc.lock has no stages, and the single git commit is 'Delete stages/03_build.sh'. No upstream URL, README source, or .bb metadata records where any data came from. Based only on the name, the intended source is presumed to be DUD-E (Directory of Useful Decoys - Enhanced) at dude.docking.org, the same source as the sibling brick 'dud-e-docking-decoys'.",
+  "dcterms:license": {
+    "@id": "https://github.com/biobricks-ai/dude",
+    "dcterms:title": "No license recorded; repository is an empty brick template with no upstream source or license (effectively UNSTATED)"
+  },
+  "dcterms:publisher": "Unknown (presumed Irwin and Shoichet Laboratories, UCSF, if DUD-E)",
+  "dcterms:identifier": "https://github.com/biobricks-ai/dude",
+  "biobricks:licenseName": "UNSTATED (no source or license recorded in repository)",
+  "biobricks:licenseClass": "unknown",
+  "biobricks:merckCommercialUse": "unknown",
+  "biobricks:licenseEvidence": [
+    {
+      "source": "/mnt/raid2/biobricks/dude (repo contents)",
+      "quote": "dvc.yaml lists stages 01_download.sh / 02_unzip.sh / 03_build.sh, but stages/ contains only csv2parquet.R and csv2parquet.py; dvc.lock is 'stages: {}'; the only git commit is '7b58573 Delete stages/03_build.sh'. No download URL, README data source, or .bb/source.jsonld exists.",
+      "confidence": "high"
+    },
+    {
+      "source": "brick name + git remote https://github.com/biobricks-ai/dude.git",
+      "quote": "Repository name 'dude' matches the DUD-E docking-decoy database; identity is inferred, not evidenced by any recorded upstream URL.",
+      "confidence": "low"
+    }
+  ],
+  "biobricks:reviewed": false,
+  "biobricks:reviewNotes": "Determined by the BioBricks licensing-provenance annotation agent (Claude). This brick is a NON-FUNCTIONAL / empty template: the referenced download, unzip and build stage scripts are absent, dvc.lock has no stages, and no upstream URL or license is recorded anywhere in the repo. The name 'dude' suggests it was intended to package DUD-E (dude.docking.org), which the sibling brick 'dud-e-docking-decoys' covers and which itself has restrictive custom terms (free to use / academic, copyright UC Regents, no commercial grant). Because this repository contains NO source or license evidence, it is honestly classed unknown / commercial unknown. HUMAN REVIEW REQUIRED: determine whether this brick is an abandoned duplicate of 'dud-e-docking-decoys' (recommend deprecating/merging), or confirm its actual intended source; if it is DUD-E, apply the restricted/prohibited verdict from the dud-e-docking-decoys manifest.",
+  "prov:wasDerivedFrom": [
+    {
+      "@type": "dcat:Dataset",
+      "@id": "https://dude.docking.org/",
+      "dcterms:title": "DUD-E: A Database of Useful (Docking) Decoys - Enhanced (presumed source, inferred from brick name; not confirmed by repository)",
+      "dcterms:license": {
+        "@id": "https://dude.docking.org/",
+        "dcterms:title": "Presumed DUD-E custom academic terms (not confirmed; no license recorded in this brick)"
+      },
+      "dcterms:publisher": "Irwin and Shoichet Laboratories, UCSF (presumed)",
+      "dcat:landingPage": "https://dude.docking.org/"
+    }
+  ],
+  "prov:wasGeneratedBy": {
+    "@type": "prov:Activity",
+    "prov:wasAssociatedWith": "BioBricks licensing-provenance annotation agent (Claude, slice items[456:462])",
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime",
+      "@value": "2026-08-05T00:00:00Z"
+    }
+  }
+}
